@@ -108,7 +108,7 @@ keyboard.addEventListener('click', (event) => {
   const letterFound = checkLetter(event.target.textContent);
   for(let i = 0; i < tries.length; i++) {
   if (letterFound === null) {
-      tries[i].firstElementChild.src === 'images/lostHeart.png';
+      tries[i].firstElementChild.src = 'images/lostHeart.png';
       break;
     }
     missed++;
