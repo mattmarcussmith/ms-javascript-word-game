@@ -1,119 +1,119 @@
 const keyboard = document.querySelector('#qwerty');
+const button = document.querySelectorAll('#qwerty button');
 const phrase = document.querySelector('#phrase');
 const missed = 0;
-const startOverlay = document.querySelector('#overlay')
-const startButton = document.querySelector('.btn__reset');
-const ul = phrase.querySelector('ul');
-const scoreboard = document.querySelector('#scoreboard')
-const attempts = document.querySelectorAll('.tries')
+const startGame = document.querySelector('.btn__reset');
+const ul = document.querySelector('#phrase ul');
+const image = document.querySelectorAll('.tries img');
+const tries = document.querySelectorAll('.tries');
+const overlayHeader = document.querySelector('#overlay h2');
+const overlay = document.querySelector('#overlay ');
 
-const phrases =
-[ 'Love For All, Hatred For None',
-  'Change the world by being yourself',
-  'Every moment is a fresh beginning',
-  'Never regret anything that made you smile',
-  'Die with memories, not dreams'
+
+const phrases = ['Love For All, Hatred For None',
+  'Change the world by being yourself',
+  'Every moment is a fresh beginning',
+  'Never regret anything that made you smile',
+  'Die with memories, not dreams'
 ];
 
+startGame.addEventListener('click', () => {
+  overlay.style.display = 'none';
+});
+//Listens for the game button to be pressed
 
 
-  // Start game clicked removes the overlay 
-startButton.addEventListener('click', () => {
-   startOverlay.style.display = 'none';
-
- })
-
-  // adds secret phrase to display
- 
-
+//returns a random phrase from an array
 const getRandomPhraseAsArray = (array) => {
-   // Generate random array
-   const randomPhrase = Math.floor(Math.random() * phrases.length);
 
-   // Grabs the random array
-   const phrase = array[randomPhrase]
+  const randomNumber = Math.floor(Math.random() * phrases.length);
 
-   // Grabs individual characters of random array
-   const charactersFromArray = Array.from(phrase);
+  //Grabs the index of chosen array and places it into numberIndex
+  const index = array[randomNumber];
 
-   // returns characters
-   return charactersFromArray;
+  // Grabs characters from chosen index
+  const characters = Array.from(index);
+  return characters;
 }
-
-const addPhraseToDisplay = (arrayOfLetters) => {
-  // cycle through array of characters 
-  for(let i = 0; i < charactersFromArray.length; i++) {
-    
-    //create li
+const secretValue = getRandomPhraseAsArray(phrases);
+// Checks if letter is in the phrase
+const addPhraseToDisplay = (array) => {
+  for (let i = 0; i < array.length; i++) {
+    //create li
     const li = document.createElement('li');
-
-    // Sets the text of any given array
-    li.textContent = arrayOfLetters[i];
-
-    // Displays the result
+    // Sets the text of any given array
+    li.textContent = array[i];
+    // Displays the result
     ul.appendChild(li)
-
-    if(arrayOfLetters[i] === ' ') {
-      // Adds class of space to empty array
-       li.classList.add('space');
+    if (array[i] === ' ') {
+      // Adds class of space to empty array
+      li.classList.add('space');
     } else {
-      // Adds class of letter to array thats NOT empty
+      // Adds class of letter to array thats NOT empty
       li.classList.add('letter');
     }
+
   }
 
-  // Call to add phrase to UI and generate random phrase
-  const secretPhrase = getRandomPhraseAsArray(phrases);
-  addPhraseToDisplay(secretPhrase);
-  
- 
 }
-const checkLetter = (letterClicked) => {
-  // Grabs any class that has letters
-  const letters = document.querySelectorAll('.letter')
-  // initalizing letter found
-  letterFound = '';
-  //Iterates through array
-  for(let i = 0; i < letters.length; i++) {
-    // checks if any given character is equal to users click. 
-    if(letters[i].textContent.toLowerCase() === letterClicked) {
-       letters[i].classList.add('show');
-       letterFound = 'correct';
+addPhraseToDisplay(secretValue);
+
+const checkLetter = (clickedButton) => {
+
+  const li = document.querySelectorAll('.letter');
+
+  for (let i = 0; i < li.length; i++) {
+    if (li[i].textContent.toLowerCase() === clickedButton) {
+
+      const match = li[i].classList.add('show');
+      return match;
     } else {
       return null;
     }
+
   }
+  return match;
 }
 
+
+
+//Won or lost
+const checkWin = () => {
+  const letterLi = document.getElementsByClassName('letter');
+  const showLI = document.getElementsByClassName('show');
+
+  if (letterLi.length === showLI.length) {
+    startGame.className = 'WINNER';
+    overlayHeader.textContent = 'WINNER WINNER CHICKEN DINNER!'
+    overlayHeader.style.display = 'flex';
+    startGame.textContent = 'Play Again.';
+  } else if (missed > 4) {
+    startGame.className = 'LOSER';
+    overlayHeader.textContent = 'SORRY, YOU LOST!'
+    overlayHeader.style.display = 'flex';
+    startGame.textContent = 'Play Again.';
+  }
+  checkWin();
+}
+
+
+
+
 keyboard.addEventListener('click', (event) => {
-     if(event.target.tagName === 'button') {
-       // Targets text within button
-       const button = e.target.textContent;
-
-       //Calls checkLetter 
-       checkLetter(button);
-
-       if(letterFound === null){
-         // lost heart display when letter is not correct
-         for(let i = 0; i < attempts.length; i++) {
-          if(attempts[i].firstElementChild.src === 'images/liveHeart.png')
-          attempts[i].firstElementChild.src === 'images/lostHeart.png';
-           missed += 1;
-           
-         }
-       }
-
-       // Adds class of chosen  to clicked button
-       button.classList.add('chosen');
-
-       // Cant click button again
-       button.setAttribute('disabled', true);
-
-
-     }
-        
-     })
-
-
+  
+  if (event.target === 'button') {
+    button.classList.add('chosen');
+    button.setAttribute('disabled', true);
+  }
+  const letterFound = checkLetter(event.target.textContent);
+  for(let i = 0; i < tries.length; i++) {
+  if (letterFound === null) {
+      tries[i].firstElementChild.src === 'images/lostHeart.png';
+      break;
+    }
+    missed++;
+  }
+ 
+  })
 
 
