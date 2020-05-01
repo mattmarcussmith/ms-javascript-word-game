@@ -82,7 +82,7 @@ const checkWin = () => {
   if (letterLi.length === showLI.length) {
     startGame.className = 'WINNER';
     overlay.style.display = 'inherit';
-    overlayHeader.textContent = 'WINNER WINNER CHICKEN DINNER!'
+    overlayHeader.style.textContent = 'WINNER WINNER CHICKEN DINNER!'
     overlayHeader.style.display = 'flex';
     startGame.textContent = 'Play Again.';
   } else if (missed > 4) {
@@ -104,11 +104,12 @@ keyboard.addEventListener('click', (event) => {
     const letterFound = checkLetter(event.target.textContent);
     if( letterFound === null) {
       missed++;
-    }
-    for(let i = 0; i < missed; i++) {
-        tries[i].firstElementChild.src ='images/lostHeart.png';
-     
+    
+    for(let i = 0; i < missed; i++){
+           tries[i].firstElementChild.src = 'images/lostHeart.png';
+       
       }
+    }
     checkWin();
 })
 
