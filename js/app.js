@@ -4,7 +4,8 @@ const missed = 0;
 const startOverlay = document.querySelector('#overlay')
 const startButton = document.querySelector('.btn__reset');
 const ul = phrase.querySelector('ul');
-
+const scoreboard = document.querySelector('#scoreboard')
+const attempts = document.querySelectorAll('.tries')
 
 const phrases =
 [ 'Love For All, Hatred For None',
@@ -70,15 +71,14 @@ const addPhraseToDisplay = (arrayOfLetters) => {
 const checkLetter = (letterClicked) => {
   // Grabs any class that has letters
   const letters = document.querySelectorAll('.letter')
+  // initalizing letter found
   letterFound = '';
-
   //Iterates through array
   for(let i = 0; i < letters.length; i++) {
     // checks if any given character is equal to users click. 
     if(letters[i].textContent.toLowerCase() === letterClicked) {
-             
-       letterFound = letters[i].classList.add('show');
-       return letterFound;
+       letters[i].classList.add('show');
+       letterFound = 'correct';
     } else {
       return null;
     }
@@ -89,7 +89,19 @@ keyboard.addEventListener('click', (event) => {
      if(event.target.tagName === 'button') {
        // Targets text within button
        const button = e.target.textContent;
+
+       //Calls checkLetter 
        checkLetter(button);
+
+       if(letterFound === null){
+         // lost heart display when letter is not correct
+         for(let i = 0; i < attempts.length; i++) {
+          if(attempts[i].firstElementChild.src === 'images/liveHeart.png')
+          attempts[i].firstElementChild.src === 'images/lostHeart.png';
+           missed += 1;
+           
+         }
+       }
 
        // Adds class of chosen  to clicked button
        button.classList.add('chosen');
