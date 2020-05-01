@@ -1,7 +1,7 @@
 const keyboard = document.querySelector('#qwerty');
 const button = document.querySelectorAll('#qwerty button');
 const phrase = document.querySelector('#phrase');
-const missed = 0;
+let missed = 0;
 const startGame = document.querySelector('.btn__reset');
 const ul = document.querySelector('#phrase ul');
 const image = document.querySelectorAll('.tries img');
@@ -72,11 +72,8 @@ const checkLetter = (clickedButton) => {
     }
 
   }
-  return match;
+  
 }
-
-
-
 //Won or lost
 const checkWin = () => {
   const letterLi = document.getElementsByClassName('letter');
@@ -84,6 +81,7 @@ const checkWin = () => {
 
   if (letterLi.length === showLI.length) {
     startGame.className = 'WINNER';
+    overlay.style.display = 'inherit';
     overlayHeader.textContent = 'WINNER WINNER CHICKEN DINNER!'
     overlayHeader.style.display = 'flex';
     startGame.textContent = 'Play Again.';
@@ -93,27 +91,26 @@ const checkWin = () => {
     overlayHeader.style.display = 'flex';
     startGame.textContent = 'Play Again.';
   }
-  checkWin();
+
 }
 
 
-
-
 keyboard.addEventListener('click', (event) => {
-  
-  if (event.target === 'button') {
-    button.classList.add('chosen');
-    button.setAttribute('disabled', true);
-  }
-  const letterFound = checkLetter(event.target.textContent);
-  for(let i = 0; i < tries.length; i++) {
-  if (letterFound === null) {
-      tries[i].firstElementChild.src = 'images/lostHeart.png';
-      break;
+    console.log(event.target);
+    if(event.target === 'button') {
+      button.classList.add('chosen');
+      button.setAttribute('disabled', true);
     }
-    missed++;
-  }
- 
-  })
+    const letterFound = checkLetter(event.target.textContent);
+    if( letterFound === null) {
+      missed++;
+    }
+    for(let i = 0; i < missed; i++) {
+        tries[i].firstElementChild.src ='images/lostHeart.png';
+     
+      }
+    checkWin();
+})
+
 
 
