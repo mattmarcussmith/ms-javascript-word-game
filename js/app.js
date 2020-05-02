@@ -7,8 +7,8 @@ const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
 const button = document.getElementsByTagName('button');
 const heart = document.querySelectorAll('img');
-const phrases =
-['Love For All, Hatred For None',
+
+const phrases = ['Love For All, Hatred For None',
   'Change the world by being yourself',
   'Every moment is a fresh beginning',
   'Never regret anything that made you smile',
@@ -27,53 +27,53 @@ function getRandomPhraseAsArray(array) {
 
   return characters;
 }
-getRandomPhraseAsArray(phrases);
+
 
 
 function addPhraseToDisplay(arrayOfCharacters) {
-  for(let i=0; i< arrayOfCharacters.length; i++) {
+  for (let i = 0; i < arrayOfCharacters.length; i++) {
     let li = document.createElement('li');
     let ul = document.querySelector('#phrase ul ')
     ul.append(li);
-    li.textContent= arrayOfCharacters[i];
-    if(arrayOfCharacters[i] === ' ') {
+    li.textContent = arrayOfCharacters[i];
+    if (arrayOfCharacters[i] === ' ') {
       li.classList.add('space')
     } else {
       li.classList.add('letter');
     }
-      
-     
-    }
+
+
+  }
 }
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
 
 function checkLetter(guess) {
+  const match = null;
   const letters = document.getElementsByClassName('letter');
-  for(let i = 0; i < letters.length; i++) {
-     if(guess === letters[i].textContent.toLowerCase()){
-       let matchingLetter = letters.classList.add('show');
-       return matchingLetter;
-     } else {
-       return null;
-     }
-   
+  for (let i = 0; i < letters.length; i++) {
+    if (guess.textContent === letters[i].textContent.toLowerCase()) {
+      letters[i].classList.add('show');
+      match = guess.textContent;
+    }
+    
   }
-
+  return match;
 }
 qwerty.addEventListener('click', (event) => {
+  
   console.log(event.target)
-   const letterClicked = event.target;
-   if(letterClicked === 'button') {
-   letterClicked.classList.add('chosen');
-   letterClicked.setAttribute('disabled', true);
-   }
-   const letterFound = checkLetter(event.target.textContent);
-       if(letterFound === null) {
-         for(let i = 0; i < missed; i<=5){
-         heart--;
-         missed++;
-         }
-       }
-
+  const letterClicked = event.target;
+  if (letterClicked.tagName === 'BUTTON') {
+    letterClicked.classList.add('chosen');
+    letterClicked.setAttribute('disabled', true);
+  }
+  const letterFound = checkLetter(event.target.textContent);
+  if (letterFound === null) {
+    for (let i = 0; i < missed; i <= 5) {
+      heart--;
+      missed++;
+    }
+  }
+ checkLetter();
 })
