@@ -2,7 +2,7 @@
 const qwerty = document.querySelector('#qwerty');
 const ul = document.querySelector('#phrase');
 let missed = 0;
-const tries = document.querySelectorAll('li img')
+const tries = document.querySelectorAll('#scoreboard img')
 const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
 const button = document.getElementsByTagName('button');
@@ -66,11 +66,13 @@ qwerty.addEventListener('click', (event) => {
   if (letterClicked.tagName === 'BUTTON') {
     letterClicked.classList.add('chosen');
     letterClicked.setAttribute('disabled', true);
-  }
-  const letterFound = checkLetter(event.target.textContent);
-  if(letterFound === null) {
-    tries[missed++].src = 'images/lostHeart.png';
- }
+    const letterFound = checkLetter(event.target.textContent);
 
+  if(!letterFound && missed < 5) {
+    tries[missed].src = "images/lostHeart.png";
+    missed+=1;
+
+   }
+  }
     checkLetter(event.target);
 })
