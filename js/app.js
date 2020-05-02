@@ -2,11 +2,11 @@
 const qwerty = document.querySelector('#qwerty');
 const ul = document.querySelector('#phrase');
 let missed = 0;
-const tries = document.querySelector('.tries')
+const tries = document.querySelectorAll('li img')
 const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
 const button = document.getElementsByTagName('button');
-const heart = document.querySelectorAll('img');
+
 
 const phrases = ['Love For All, Hatred For None',
   'Change the world by being yourself',
@@ -49,8 +49,8 @@ const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
 
 function checkLetter(guess) {
-  const match = null;
-  const letters = document.querySelectorAll('li');
+  let match = null;
+  const letters = document.getElementsByClassName('letter');
   for (let i = 0; i < letters.length; i++) {
     if (guess.textContent === letters[i].textContent.toLowerCase()) {
       letters[i].classList.add('show');
@@ -61,7 +61,6 @@ function checkLetter(guess) {
   return match;
 }
 qwerty.addEventListener('click', (event) => {
-  
   console.log(event.target)
   const letterClicked = event.target;
   if (letterClicked.tagName === 'BUTTON') {
@@ -69,11 +68,9 @@ qwerty.addEventListener('click', (event) => {
     letterClicked.setAttribute('disabled', true);
   }
   const letterFound = checkLetter(event.target.textContent);
-  if (letterFound === null) {
-    for (let i = 0; i < missed; i <= 5) {
-      heart--;
-      missed++;
-    }
-  }
- checkLetter();
+  if(letterFound === null) {
+    tries[missed++].src = 'images/lostHeart.png';
+ }
+
+    checkLetter(event.target);
 })
