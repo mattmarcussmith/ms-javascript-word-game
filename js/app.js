@@ -2,7 +2,7 @@
 const qwerty = document.querySelector('#qwerty');
 const ul = document.querySelector('#phrase');
 let missed = 0;
-const tries = document.querySelectorAll('#scoreboard img')
+
 const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
 const button = document.getElementsByTagName('button');
@@ -60,19 +60,21 @@ function checkLetter(guess) {
   }
   return match;
 }
+
 qwerty.addEventListener('click', (event) => {
   console.log(event.target)
   const letterClicked = event.target;
   if (letterClicked.tagName === 'BUTTON') {
     letterClicked.classList.add('chosen');
     letterClicked.setAttribute('disabled', true);
-    const letterFound = checkLetter(event.target.textContent);
-
+    const letterFound = checkLetter(letterClicked);
   if(!letterFound && missed < 5) {
-    tries[missed].src = "images/lostHeart.png";
-    missed+=1;
-
+    const hearts = document.querySelectorAll('li img')
+       hearts[missed].src = 'images/lostHeart.png'
+        missed+=1;
+    
    }
   }
     checkLetter(event.target);
 })
+
