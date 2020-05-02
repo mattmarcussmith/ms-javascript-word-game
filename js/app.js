@@ -5,6 +5,7 @@ let missed = 0;
 
 const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
+const overlayH2 = document.querySelector('#overlay h2');
 const button = document.getElementsByTagName('button');
 
 
@@ -64,17 +65,36 @@ function checkLetter(guess) {
 qwerty.addEventListener('click', (event) => {
   console.log(event.target)
   const letterClicked = event.target;
+
   if (letterClicked.tagName === 'BUTTON') {
     letterClicked.classList.add('chosen');
     letterClicked.setAttribute('disabled', true);
     const letterFound = checkLetter(letterClicked);
+
   if(!letterFound && missed < 5) {
     const hearts = document.querySelectorAll('li img')
        hearts[missed].src = 'images/lostHeart.png'
-        missed+=1;
-    
+        missed+=1;  
    }
   }
-    checkLetter(event.target);
+  checkWin();
 })
+
+function checkWin() {
+  const letter = document.querySelectorAll('li.letter');
+  const show = document.querySelectorAll('li.show');
+  if(letter.length === show.length) {
+    overlay.className = 'win';
+    overlayH2.textContent = 'You Won';
+    overlay.style.display = 'flex';
+    startGame.textContent ='Try again';
+  }
+  if(missed > 4) {
+    overlay.className = 'lose';
+    overlayH2.textContent = 'You lose';
+    overlay.style.display = 'flex';
+    startGame.textContent = 'Try again';
+  }
+
+}
 
