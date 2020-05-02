@@ -50,7 +50,7 @@ addPhraseToDisplay(phraseArray);
 
 function checkLetter(guess) {
   const match = null;
-  const letters = document.getElementsByClassName('letter');
+  const letters = document.querySelectorAll('li');
   for (let i = 0; i < letters.length; i++) {
     if (guess.textContent === letters[i].textContent.toLowerCase()) {
       letters[i].classList.add('show');
