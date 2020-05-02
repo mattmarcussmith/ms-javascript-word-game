@@ -23,6 +23,7 @@
 }
 
 body {
+  background-color: rgb(24, 23, 23);
   justify-content: space-evenly;
   flex-direction: column;
   display: flex;
@@ -54,6 +55,7 @@ button {
   -o-transition: var(--transition);
   transition: var(--transition);
 }
+
 
 .main-container {
   display: flex;
@@ -95,7 +97,11 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
-}
+  transition-property: transform;
+  transition-duration: 2s;
+  transform: rotateY(360deg);
+  }
+
 
 /* Keyboard */
 
