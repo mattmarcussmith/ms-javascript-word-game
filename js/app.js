@@ -1,11 +1,12 @@
+//Keyboard
 const qwerty = document.querySelector('#qwerty');
 const ul = document.querySelector('#phrase');
 let missed = 0;
-
+const tries = document.querySelector('.tries')
 const startGame = document.querySelector('.btn__reset');
 const overlay = document.querySelector('#overlay');
-
-
+const button = document.getElementsByTagName('button');
+const heart = document.querySelectorAll('img');
 const phrases =
 ['Love For All, Hatred For None',
   'Change the world by being yourself',
@@ -22,7 +23,7 @@ startGame.addEventListener('click', (event) => {
 function getRandomPhraseAsArray(array) {
   const randomPhrase = Math.floor(Math.random() * phrases.length)
   const indexPhrase = array[randomPhrase];
-  const characters = split(indexPhrase);
+  const characters = Array.from(indexPhrase);
 
   return characters;
 }
@@ -31,16 +32,18 @@ getRandomPhraseAsArray(phrases);
 
 function addPhraseToDisplay(arrayOfCharacters) {
   for(let i=0; i< arrayOfCharacters.length; i++) {
-    const li = document.createElement('li');
-    const ul = document.querySelector('#phrase ul ')
+    let li = document.createElement('li');
+    let ul = document.querySelector('#phrase ul ')
     ul.append(li);
-    li.textContent = arrayOfCharacters[i];
+    li.textContent= arrayOfCharacters[i];
     if(arrayOfCharacters[i] === ' ') {
-      li.classList('space')
+      li.classList.add('space')
     } else {
-      li.classList('letter');
+      li.classList.add('letter');
     }
-  }
+      
+     
+    }
 }
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
@@ -48,7 +51,7 @@ addPhraseToDisplay(phraseArray);
 function checkLetter(guess) {
   const letters = document.getElementsByClassName('letter');
   for(let i = 0; i < letters.length; i++) {
-     if(letters[i].textContent.toLowerCase() === guess){
+     if(guess === letters[i].textContent.toLowerCase()){
        let matchingLetter = letters.classList.add('show');
        return matchingLetter;
      } else {
@@ -56,8 +59,21 @@ function checkLetter(guess) {
      }
    
   }
-  
-  
-
 
 }
+qwerty.addEventListener('click', (event) => {
+  console.log(event.target)
+   const letterClicked = event.target;
+   if(letterClicked === 'button') {
+   letterClicked.classList.add('chosen');
+   letterClicked.setAttribute('disabled', true);
+   }
+   const letterFound = checkLetter(event.target.textContent);
+       if(letterFound === null) {
+         for(let i = 0; i < missed; i<=5){
+         heart--;
+         missed++;
+         }
+       }
+
+})
