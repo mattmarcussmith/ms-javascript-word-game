@@ -155,6 +155,7 @@ button {
 
 .win {
   background-color: var(--color-win);
+  z-index: 1;
 }
 
 .win a {
@@ -163,6 +164,7 @@ button {
 
 .lose {
   background-color: var(--color-lose);
+  z-index: 1;
 }
 
 .lose a {

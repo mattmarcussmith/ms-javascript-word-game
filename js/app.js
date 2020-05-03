@@ -15,7 +15,7 @@ const phrases = ['Love For All, Hatred For None',
   'Change the world by being yourself',
   'Every moment is a fresh beginning',
   'Never regret anything that made you smile',
-  'Die with memories, not dreams'
+  'Die with memories not dreams'
 ];
 
 reset.addEventListener('click', (event) => {
@@ -45,7 +45,7 @@ function addPhraseToDisplay(arrayOfCharacters) {
 
   }
 }
-addPhraseToDisplay(phraseArray);
+
 
 function checkLetter(guess) {
   let match = null;
@@ -78,15 +78,17 @@ function checkWin() {
 }
 const resetGame  = () => {
   // removes phrase
-  
-   const list = ul.querySelectorAll('li');
-   for(let i = 0; i< list.length; i++) {
-     ul.removeChild(list[i]);
-   }
-   for(let i = 0; i < button.length; i++) {
-       button[i].classList.remove('chosen');
-       button[i].setAttribute('disabled', false);
-   }
+  const listItems = ul.querySelectorAll('li');
+  for(let i = 0; i< listItems.length; i ++) {
+    ul.removeChild(listItems[i]);
+  }
+
+   const buttons = document.querySelectorAll('button.chosen');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('chosen');
+            buttons[i].disabled = false;
+        }
+   
    for(let i = 0; i < hearts.length; i ++) {
      hearts[i].src = 'images/liveHeart.png';
    }
@@ -94,8 +96,7 @@ const resetGame  = () => {
    const resetPhrase = getRandomPhraseAsArray(phrases);
    addPhraseToDisplay(resetPhrase);
    overlay.classList.remove('win', 'lose');
-  
-}
+  }
 
 reset.addEventListener('click', (event) => {
    if(hasLetter.length === hasShow.length || missed > 4) {
@@ -120,5 +121,5 @@ qwerty.addEventListener('click', (event) => {
   }
 }
   checkWin();
-  
+ 
 })
