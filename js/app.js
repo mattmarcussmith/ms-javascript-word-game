@@ -18,20 +18,21 @@ const phrases = ['Love For All, Hatred For None',
   'Die with memories not dreams'
 ];
 
+// Removes overlay
 reset.addEventListener('click', (event) => {
   overlay.style.display = 'none';
 
 })
 
+// Returns individual characters 
 function getRandomPhraseAsArray(array) {
   const randomPhrase = Math.floor(Math.random() * phrases.length)
   const indexPhrase = array[randomPhrase];
   const characters = Array.from(indexPhrase);
   return characters;
 }
-const phraseArray = getRandomPhraseAsArray(phrases);
-addPhraseToDisplay(phraseArray);
 
+// Char added to dom
 function addPhraseToDisplay(arrayOfCharacters) {
   for (let i = 0; i < arrayOfCharacters.length; i++) {
     let li = document.createElement('li');
@@ -45,8 +46,10 @@ function addPhraseToDisplay(arrayOfCharacters) {
 
   }
 }
+const phraseArray = getRandomPhraseAsArray(phrases);
+addPhraseToDisplay(phraseArray);
 
-
+// check guess 
 function checkLetter(guess) {
   let match = null;
   const letters = document.getElementsByClassName('letter');
@@ -59,6 +62,8 @@ function checkLetter(guess) {
   }
   return match;
 }
+
+//overlay screen conditions
 function checkWin() {
   const letter = document.querySelectorAll('li.letter');
   const show = document.querySelectorAll('li.show');
@@ -82,19 +87,22 @@ const resetGame  = () => {
   for(let i = 0; i< listItems.length; i ++) {
     ul.removeChild(listItems[i]);
   }
-
+  // removes buttons chosen
    const buttons = document.querySelectorAll('button.chosen');
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove('chosen');
             buttons[i].disabled = false;
         }
    
+        // lost hearts removed
    for(let i = 0; i < hearts.length; i ++) {
      hearts[i].src = 'images/liveHeart.png';
    }
+   //resets misses and phrase
    missed = 0;
    const resetPhrase = getRandomPhraseAsArray(phrases);
    addPhraseToDisplay(resetPhrase);
+   //removes overlay
    overlay.classList.remove('win', 'lose');
   }
 
@@ -105,6 +113,8 @@ reset.addEventListener('click', (event) => {
    
 });
 
+
+//keyboard
 qwerty.addEventListener('click', (event) => {
   console.log(event.target)
   const letterClicked = event.target;
@@ -120,6 +130,7 @@ qwerty.addEventListener('click', (event) => {
      missed++;
   }
 }
-  checkWin();
- 
+
+checkWin();
 })
+
