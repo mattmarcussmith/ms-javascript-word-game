@@ -11,7 +11,7 @@ const hasLetter = document.getElementsByClassName('letter');
 const hasShow = document.getElementsByClassName('show');
 const hearts = document.getElementsByTagName('IMG');
 
-const phrases = ['Love For All, Hatred For None',
+const phrases = ['Love For All Hatred For None',
   'Change the world by being yourself',
   'Every moment is a fresh beginning',
   'Never regret anything that made you smile',
